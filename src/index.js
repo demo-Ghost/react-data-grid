@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const title = 'React Starter';
+import App from './app';
+
+const title = 'React Data Grid';
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <App title={title} />,
   document.getElementById('app')
 );

@@ -1,6 +1,16 @@
 import React from 'react';
 
-const App = ({ title }) =>
-  <div>{title}</div>;
+import Grid from './grid';
+
+const App = ({ title }) => {
+  return (
+    <>
+      <div>{title}</div>
+      <br />
+      <Grid />
+    </>
+  );
+}
+
 
 export default App;
