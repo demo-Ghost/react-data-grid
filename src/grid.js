@@ -5,11 +5,11 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 const mockColumnData = [{
-    headerName: "Make", field: "make"
+    headerName: "Make", field: "make", sortable: true, filter: true
   }, {
-    headerName: "Model", field: "model"
+    headerName: "Model", field: "model", sortable: true, filter: true
   }, {
-    headerName: "Price", field: "price"
+    headerName: "Price", field: "price", sortable: true, filter: true
   }];
 
   const mockRowData = [{
