@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 
-import { AgGridReact } from 'ag-grid-react';
+import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
-const mockColumnData = [{
-    headerName: "Make", field: "make", sortable: true, filter: true
-  }, {
-    headerName: "Model", field: "model", sortable: true, filter: true
-  }, {
-    headerName: "Price", field: "price", sortable: true, filter: true
-  }];
+import { payrollColumns } from './columnConfigs';
 
   const mockRowData = [{
     make: "Toyota", model: "Celica", price: 35000
@@ -21,8 +15,22 @@ const mockColumnData = [{
   }];
 
 const Grid = () => {
-    const [columnDefs, setColumnDefs] = useState(mockColumnData);
     const [rowData, setRowData] = useState(mockRowData);
+
+    const [gridApi, setGridApi] = useState(null);
+    const [gridColumnApi, setGridColumnApi] = useState(null);
+
+    const onButtonClick = e => {
+      const selectedNodes = gridApi.getSelectedNodes()
+      const selectedData = selectedNodes.map( node => node.data )
+      const selectedDataStringPresentation = selectedData.map( node => node.make + ' ' + node.model).join(', ')
+      alert(`Selected nodes: ${selectedDataStringPresentation}`)
+    }
+
+    function onGridReady(params) {
+      setGridApi(params.api);
+      setGridColumnApi(params.columnApi);
+    }
 
     return (
         <div
@@ -32,9 +40,18 @@ const Grid = () => {
                 width: 'auto'  
             }}
         >
+            <button onClick={onButtonClick}>Get selected rows</button>
             <AgGridReact
-                columnDefs={columnDefs}
-                rowData={rowData}>
+              checkboxSelection={true}
+              sortable={true}
+              filter={true}
+              rowData={rowData}
+              rowSelection="multiple"
+              onGridReady={onGridReady}
+            >
+              {payrollColumns.map((column, i) => (
+                <AgGridColumn field={column.field} key={i} />
+              ))}
             </AgGridReact>
         </div>
     );
