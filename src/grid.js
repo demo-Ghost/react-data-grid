@@ -36,22 +36,30 @@ const Grid = () => {
         <div
             className="ag-theme-balham"
             style={{
-                height: '250px',
                 width: 'auto'  
             }}
         >
             <button onClick={onButtonClick}>Get selected rows</button>
+            <br />
             <AgGridReact
               checkboxSelection={true}
+              domLayout='autoHeight'
               sortable={true}
               filter={true}
               rowData={rowData}
               rowSelection="multiple"
               onGridReady={onGridReady}
             >
-              {payrollColumns.map((column, i) => (
-                <AgGridColumn field={column.field} key={i} />
-              ))}
+              {payrollColumns.map((column, i) => {
+                const { field, headerName } = column;
+                return (
+                  <AgGridColumn
+                    key={i}
+                    field={field}
+                    headerName={headerName}
+                  />
+                );
+              })}
             </AgGridReact>
         </div>
     );
